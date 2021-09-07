@@ -10,3 +10,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
     magrittr
+URL: https://github.com/francisbarton/r-ofcom-api
+BugReports: https://github.com/francisbarton/r-ofcom-api/issues

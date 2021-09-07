@@ -1,14 +1,18 @@
-Package: r-ofcom-api
+Package: tapioca
 Version: 0.0.1
-Title: Query Ofcom Mobile API
-Description: Queries Ofcom Mobile API
-Authors@R: person("Fran", "Barton", email = "francis.barton@citizensonline.org.uk"", role = c("aut", "cre"))
+Title: Tap into the Ofcom Mobile API
+Description: Queries the Ofcom Mobile API.
+Authors@R: person("Fran", "Barton", email = "francis.barton@citizensonline.org.uk", role = c("aut", "cre"))
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    magrittr
-URL: https://github.com/francisbarton/r-ofcom-api
-BugReports: https://github.com/francisbarton/r-ofcom-api/issues
+    dplyr,
+    httr,
+    magrittr,
+    purrr,
+    stringr
+URL: https://github.com/francisbarton/tapioca
+BugReports: https://github.com/francisbarton/r-tapioca/issues

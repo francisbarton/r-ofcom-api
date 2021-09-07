@@ -26,7 +26,7 @@ doogal_download <- function(district) {
 #' tibble of results from an input df, with the option to easily retrieve
 #' data for all, or a sample of, postcodes in a local authority district.
 #'
-#' @param district name of a local authority district in England or Wales. If NULL then a data frame of postcodes should be supplied instead. Will take priority over the df argument. Automatically samples by LSOA (supplying `prop = 1` to `...` will negate any effect of this, if undesired).
+#' @param district name of a local authority district in England or Wales. If NULL then a data frame including a postcode variable should be supplied instead. Will take priority over the df argument. Automatically samples by LSOA (supplying `prop = 1` to `...` will negate any effect of this, if undesired).
 #' @param df default NULL. User-supplied data frame containing a postcode variable
 #' @param col name of the postcode variable in the df. Defaults to "postcode"
 #' @param sample_by character vector. Names of variables to group data by before sampling
@@ -78,7 +78,7 @@ district_query <- function(district = NULL, df = NULL, col = postcode, sample_by
       dplyr::rename(
         postcode_sqsh = PostCode
       ) %>%
-      dplyr::inner_join(df, .) %>%
-      dplyr::select(-postcode_sqsh)
+      dplyr::left_join(df, .) %>%
+      dplyr::select(!postcode_sqsh)
   }
 }

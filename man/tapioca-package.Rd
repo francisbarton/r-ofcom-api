@@ -6,7 +6,7 @@
 \alias{tapioca-package}
 \title{tapioca: Tap into the Ofcom Mobile API}
 \description{
-Queries the Ofcom Mobile API.
+This package facilitates querying the Ofcom Mobile API.
 }
 \seealso{
 Useful links:

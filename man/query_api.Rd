@@ -7,12 +7,12 @@
 query_api(postcode)
 }
 \arguments{
-\item{postcode}{a postcode}
+\item{postcode}{a UK postcode}
 }
 \value{
 The API response (JSON format)
 }
 \description{
 "Subscribers can retrieve broadband coverage data against postcodes
-up to 500 calls/minute for 150,000 requests per month."
+up to 500 calls/minute for 150,000 requests per month." - Ofcom API docs
 }

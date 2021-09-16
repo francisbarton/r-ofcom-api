@@ -1,7 +1,7 @@
 Package: tapioca
-Version: 0.0.1
+Version: 0.0.2
 Title: Tap into the Ofcom Mobile API
-Description: Queries the Ofcom Mobile API.
+Description: This package facilitates querying the Ofcom Mobile API.
 Authors@R: person("Fran", "Barton", email = "francis.barton@citizensonline.org.uk", role = c("aut", "cre"))
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -11,8 +11,13 @@ RoxygenNote: 7.1.1
 Imports: 
     dplyr,
     httr,
+    janitor,
+    jogger,
     magrittr,
     purrr,
-    stringr
+    rlang,
+    readr,
+    stringr,
+    usethis
 URL: https://github.com/francisbarton/tapioca
 BugReports: https://github.com/francisbarton/r-tapioca/issues

@@ -1,3 +1,6 @@
-^\.Rproj$
+^.+\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^mappable\.R$
+^.*\.jpg$
+^README\.Rmd$

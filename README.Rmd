@@ -1,0 +1,44 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(stringr)
+library(pillar)
+```
+
+# tapioca
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+### `r readLines(here::here("DESCRIPTION")) |> stringr::str_subset("^Title") |> stringr::str_extract("(?<=: ).*")`
+
+`r readLines(here::here("DESCRIPTION")) |> stringr::str_subset("^Description") |> stringr::str_extract("(?<=: ).*")`
+
+![some tapioca](tapioca_image.jpg)
+
+
+### Installation:
+
+```r
+remotes::install_github("francisbarton/tapioca")
+```
+
+### Example:
+
+```{r example}
+library(tapioca)
+pillar::glimpse(head(query_api("SE1 9HA")))
+```
+
+

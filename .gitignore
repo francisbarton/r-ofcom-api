@@ -4,3 +4,4 @@
 .httr-oauth
 .DS_Store
 R/api_key.R
+mappable.R

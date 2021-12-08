@@ -3,4 +3,7 @@
 export(area_query)
 export(doogal_download)
 export(query_api)
+importFrom(dplyr,across)
+importFrom(httr,add_headers)
 importFrom(magrittr,"%>%")
+importFrom(usethis,ui_stop)

@@ -1,5 +1,4 @@
 # https://purrr.tidyverse.org/reference/faq-adverbs-export.html
-slow_query_api <- function(...) "dummy"
 safe_query_api <- function(...) "dummy"
 
 #' Get Data from Ofcom Mobile Coverage API

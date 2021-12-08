@@ -14,30 +14,19 @@ doogal_download <- function(area) {
   area_code <- NULL
 
   # lookup ONS area code for the district
-  area_code <- poss_get_area_code(area, "lad")
+  area_code <- poss_get_area_code(area)
   if (length(area_code) == 1) {
-    res <- paste0("https://www.doogal.co.uk/AdministrativeAreasCSV.ashx?district=",
+    paste0("https://www.doogal.co.uk/AdministrativeAreasCSV.ashx?district=",
            area_code) %>%
-      readr::read_csv()
-    return(res)
-  }
-
-  # lookup ONS area code for the county
-  area_code <- poss_get_area_code(area, "utla")
-
-  if (length(area_code) == 1) {
-    res <- paste0("https://www.doogal.co.uk/CountiesCSV.ashx?county=",
-           area_code) %>%
-      readr::read_csv()
-    return(res)
+      readr::read_csv(show_col_types = FALSE)
   } else {
-    usethis::ui_stop("No postcode data was possible to retrieve for that local authority area or county name.")
+    usethis::ui_stop("No postcode data was possible to retrieve for the area name provided.")
   }
 }
 
-
-get_area_code <- function(area, type) {
-  jogger::geo_get(type, area, type, return_boundaries = FALSE) %>%
+# bit of a hack
+get_area_code <- function(area) {
+  jogger::geo_get("lad", area, "lad", return_boundaries = FALSE) %>%
     dplyr::pull(1)
 }
 
@@ -49,15 +38,17 @@ get_area_code <- function(area, type) {
 #'
 #' @param area The name of a local authority area (lower or upper tier) in
 #'   England or Wales. If `NULL`, then a data frame including a postcode variable
-#'   should be supplied instead. Will take priority over the df argument.
-#'   Automatically samples by LSOA (supplying `prop = 1` to `...` will negate any
-#'   effect of this, if undesired).
+#'   should be supplied instead. If for some reason you supply both, this (`area`)
+#'   will take priority over the `df` argument.
+#'   `tapioca` samples by LSOA by default – supplying `prop = 1` to `...` will negate
+#'   any effect of this, if sampling is undesired (`prop = 1` means all postcodes
+#'   in the area will be included).
 #' @param df User-supplied data frame containing a postcode variable.
 #'   Default is `NULL`.
-#' @param col The name of the postcode variable in `df`. Defaults to "postcode".
-#' @param sample_by A character vector. Names of variables to group data by
-#'   before sampling.
-#' @param return_errors Mainly used as a debug mode. Defaults to `FALSE`, meaning
+#' @param col The name of the postcode variable in `df`. Defaults to `postcode`.
+#' @param sample_by A character vector. Name(s) of variable(s) in `df` to group data
+#' by before sampling. Not required when using `area` (will just use LSOA).
+#' @param return_errors Mainly for use as a debug mode. Defaults to `FALSE`, meaning
 #'   the function will return a nice data frame of just successful results (errors
 #'   removed). If you are not getting the results you expect, turn on
 #'   `return_errors` and the function will instead return a list with
@@ -79,10 +70,11 @@ area_query <- function(area = NULL, df = NULL, col = postcode, sample_by = NULL,
   }
 
   if (is.null(df)) {
-    df <- doogal_download(area) %>%
+    df <- area %>%
+      purrr::map_df(doogal_download) %>%
       janitor::clean_names() %>%
       dplyr::filter(in_use == "Yes") %>%
-      dplyr::select(postcode, lsoa11cd = lsoa_code, lsoa11nm = lsoa_name, easting:northing) %>%
+      dplyr::select(postcode, lsoa11cd = "lsoa_code", lsoa11nm = "lsoa_name", easting:northing) %>%
       dplyr::group_by(lsoa11cd, lsoa11nm) %>%
       dplyr::slice_sample(...) %>%
       dplyr::ungroup()
@@ -108,7 +100,7 @@ area_query <- function(area = NULL, df = NULL, col = postcode, sample_by = NULL,
     results
   } else {
     results %>%
-      purrr::map("result") %>% # pluck?
+      purrr::map("result") %>%
       purrr::compact() %>% # remove NULLs
       purrr::reduce(dplyr::bind_rows) %>% # combine to single tibble
       dplyr::rename(

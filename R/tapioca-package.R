@@ -5,6 +5,9 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom magrittr %>%
+#' @importFrom dplyr across
+#' @importFrom httr add_headers
+#' @importFrom usethis ui_stop
 ## usethis namespace: end
 NULL
 

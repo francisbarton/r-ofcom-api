@@ -16,19 +16,21 @@ area_query(
 \arguments{
 \item{area}{The name of a local authority area (lower or upper tier) in
 England or Wales. If \code{NULL}, then a data frame including a postcode variable
-should be supplied instead. Will take priority over the df argument.
-Automatically samples by LSOA (supplying \code{prop = 1} to \code{...} will negate any
-effect of this, if undesired).}
+should be supplied instead. If for some reason you supply both, this (\code{area})
+will take priority over the \code{df} argument.
+\code{tapioca} samples by LSOA by default – supplying \code{prop = 1} to \code{...} will negate
+any effect of this, if sampling is undesired (\code{prop = 1} means all postcodes
+in the area will be included).}
 
 \item{df}{User-supplied data frame containing a postcode variable.
 Default is \code{NULL}.}
 
-\item{col}{The name of the postcode variable in \code{df}. Defaults to "postcode".}
+\item{col}{The name of the postcode variable in \code{df}. Defaults to \code{postcode}.}
 
-\item{sample_by}{A character vector. Names of variables to group data by
-before sampling.}
+\item{sample_by}{A character vector. Name(s) of variable(s) in \code{df} to group data
+by before sampling. Not required when using \code{area} (will just use LSOA).}
 
-\item{return_errors}{Mainly used as a debug mode. Defaults to \code{FALSE}, meaning
+\item{return_errors}{Mainly for use as a debug mode. Defaults to \code{FALSE}, meaning
 the function will return a nice data frame of just successful results (errors
 removed). If you are not getting the results you expect, turn on
 \code{return_errors} and the function will instead return a list with

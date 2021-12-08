@@ -1,5 +1,5 @@
 Package: tapioca
-Version: 0.0.4
+Version: 0.0.5
 Title: Tap into the Ofcom Mobile API
 Description: This package facilitates querying the Ofcom Mobile API.
 Authors@R: person("Fran", "Barton", email = "francis.barton@citizensonline.org.uk", role = c("aut", "cre"))

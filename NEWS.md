@@ -1,3 +1,8 @@
+# tapioca 0.0.5 (7 December 2021)
+
+* Removed Counties API functionality as it doesn't return LSOA details like the Admin Areas API. And instead...:
+* Added the ability for `area_query` to handle a vector of area names via `purrr::map_df`, so you can send all LAD names from a county in one go
+
 # tapioca 0.0.4 (7 December 2021)
 
 * Introduced `possibly` adverb for `doogal_download` and when properly documented, fixes issue #5.

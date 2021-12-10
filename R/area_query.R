@@ -61,7 +61,7 @@ get_area_code <- function(area) {
 #' @return Either a tibble of successful results from the API, or a list of results
 #'   and errors (if `return_errors` is set to `TRUE`).
 #' @export
-area_query <- function(area = NULL, df = NULL, col = postcode, sample_by = NULL, return_errors = FALSE, ...) {
+area_query <- function(area = NULL, df = NULL, col = .data$postcode, sample_by = NULL, return_errors = FALSE, ...) {
 
   col <- rlang::ensym(col) # allows arg to be supplied as a string
 
@@ -73,9 +73,9 @@ area_query <- function(area = NULL, df = NULL, col = postcode, sample_by = NULL,
     df <- area %>%
       purrr::map_df(doogal_download) %>%
       janitor::clean_names() %>%
-      dplyr::filter(in_use == "Yes") %>%
-      dplyr::select(postcode, lsoa11cd = "lsoa_code", lsoa11nm = "lsoa_name", easting:northing) %>%
-      dplyr::group_by(lsoa11cd, lsoa11nm) %>%
+      dplyr::filter(.data$in_use == "Yes") %>%
+      dplyr::select(.data$postcode, .data$lsoa11cd := "lsoa_code", .data$lsoa11nm := "lsoa_name", .data$easting:.data$northing) %>%
+      dplyr::group_by(.data$lsoa11cd, .data$lsoa11nm) %>%
       dplyr::slice_sample(...) %>%
       dplyr::ungroup()
   } else if (!is.null(sample_by)) {
@@ -89,7 +89,7 @@ area_query <- function(area = NULL, df = NULL, col = postcode, sample_by = NULL,
   }
 
   df <- df %>%
-    dplyr::mutate(postcode_sqsh = stringr::str_remove_all({{col}}, "[^[:alnum:]]"))
+    dplyr::mutate(.data$postcode_sqsh := stringr::str_remove_all({{col}}, "[^[:alnum:]]"))
 
   results <- df %>%
     dplyr::pull(col) %>%
@@ -104,9 +104,9 @@ area_query <- function(area = NULL, df = NULL, col = postcode, sample_by = NULL,
       purrr::compact() %>% # remove NULLs
       purrr::reduce(dplyr::bind_rows) %>% # combine to single tibble
       dplyr::rename(
-        postcode_sqsh = PostCode
+        .data$postcode_sqsh := .data$PostCode
       ) %>%
       dplyr::left_join(df, ., by = "postcode_sqsh") %>%
-      dplyr::select(!postcode_sqsh)
+      dplyr::select(!.data$postcode_sqsh)
   }
 }

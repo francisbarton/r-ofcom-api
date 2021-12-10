@@ -7,7 +7,7 @@
 area_query(
   area = NULL,
   df = NULL,
-  col = postcode,
+  col = .data$postcode,
   sample_by = NULL,
   return_errors = FALSE,
   ...

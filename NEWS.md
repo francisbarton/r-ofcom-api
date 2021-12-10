@@ -1,3 +1,7 @@
+# tapioca 0.0.6 (10 December 2021)
+
+* Added `.data` pronouns to functions in `area_query.R` and now get NO NOTES on R CMD check!!
+
 # tapioca 0.0.5 (7 December 2021)
 
 * Removed Counties API functionality as it doesn't return LSOA details like the Admin Areas API. And instead...:

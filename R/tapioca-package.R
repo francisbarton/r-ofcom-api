@@ -8,8 +8,11 @@
 #' @importFrom dplyr across
 #' @importFrom httr add_headers
 #' @importFrom usethis ui_stop
+#' @importFrom rlang := .data
 ## usethis namespace: end
 NULL
+
+utils::globalVariables(c("."))
 
 # https://purrr.tidyverse.org/reference/faq-adverbs-export.html
 .onLoad <- function(lib, pkg) {

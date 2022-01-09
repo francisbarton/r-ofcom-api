@@ -12,6 +12,8 @@ This package facilitates querying the Ofcom Mobile API.
 
 ![some tapioca](tapioca_image.jpg)
 
+*Some tapioca!*
+
 ### Installation:
 
 ``` r
